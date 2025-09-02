@@ -29,5 +29,5 @@ A modern **Juice Tracker** Android application built using **Jetpack Compose**, 
   - 
 - **XML & Compose Interoperability:** Combines modern Compose UI elements with traditional XML layouts.  
 
-## Project Structure
+
 
