@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.juice.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint  // <-- import this
+
+@AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         val navController = navHostFragment?.navController
 
-        navController?.let { 
+        navController?.let {
             setupActionBarWithNavController(it)
             supportActionBar?.title = getString(R.string.app_name)
         }

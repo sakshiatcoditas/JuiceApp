@@ -1,5 +1,5 @@
 package com.example.juice.ui
-
+import dagger.hilt.android.AndroidEntryPoint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,16 +17,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class EntryDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentEntryDialogBinding
     private var selectedColor: JuiceColor = JuiceColor.Red
 
-    private val entryViewModel by viewModels<JuiceViewModel> {
-        JuiceViewModel.Factory(
-            (requireActivity().application as JuiceTrackerApplication).repository
-        )
-    }
+    private val entryViewModel: JuiceViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +34,6 @@ class EntryDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-//    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()
         setupColorSpinner()
@@ -60,10 +56,7 @@ class EntryDialogFragment : BottomSheetDialogFragment() {
 
         binding.colorSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                pos: Int,
-                id: Long
+                parent: AdapterView<*>, view: View?, pos: Int, id: Long
             ) {
                 selectedColor = JuiceColor.entries[pos]
             }
@@ -75,13 +68,8 @@ class EntryDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupButtons() {
-        binding.saveButton.setOnClickListener {
-            saveJuice()
-        }
-
-        binding.cancelButton.setOnClickListener {
-            dismiss()
-        }
+        binding.saveButton.setOnClickListener { saveJuice() }
+        binding.cancelButton.setOnClickListener { dismiss() }
     }
 
     private fun loadExistingJuice() {
@@ -117,8 +105,7 @@ class EntryDialogFragment : BottomSheetDialogFragment() {
         }
 
         entryViewModel.saveJuice(
-            juiceId, name, description,
-            selectedColor.name, rating
+            juiceId, name, description, selectedColor.name, rating
         )
         dismiss()
     }

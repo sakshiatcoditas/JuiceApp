@@ -10,22 +10,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.juice.databinding.FragmentTrackerBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TrackerFragment : Fragment() {
 
     private var _binding: FragmentTrackerBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<JuiceViewModel> {
-        JuiceViewModel.Factory(
-            (requireActivity().application as JuiceTrackerApplication).repository
-        )
-    }
-
-
-
+    private val viewModel: JuiceViewModel by viewModels()
     private lateinit var adapter: JuiceListAdapter
 
     override fun onCreateView(
@@ -48,9 +43,7 @@ class TrackerFragment : Fragment() {
                     arguments = Bundle().apply { putLong("itemId", juice.id) }
                 }.show(parentFragmentManager, "EntryDialog")
             },
-            onDelete = { juice -> 
-                viewModel.deleteJuice(juice)
-            }
+            onDelete = { juice -> viewModel.deleteJuice(juice) }
         )
 
         binding.recyclerView.apply {
