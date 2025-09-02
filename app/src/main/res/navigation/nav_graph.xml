@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/trackerFragment">
+
+    <fragment
+        android:id="@+id/trackerFragment"
+        android:name="com.example.juice.ui.TrackerFragment"
+        android:label="Juice List"
+        tools:layout="@layout/fragment_tracker" />
+</navigation>
